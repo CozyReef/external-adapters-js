@@ -27,6 +27,7 @@ import { configureStore, serverShutdown } from './lib/store'
 import * as util from './lib/util'
 import * as ws from './lib/middleware/ws'
 import { FastifyInstance } from 'fastify'
+import { RPCErrorMap } from './lib/errors'
 
 const REDUX_MIDDLEWARE = ['burstLimit', 'cacheWarmer', 'errorBackoff', 'rateLimit', 'ws'] as const
 type ReduxMiddleware = typeof REDUX_MIDDLEWARE[number]
@@ -120,14 +121,18 @@ export const executeSync: ExecuteSync = async (
     return callback(result.statusCode, result)
   } catch (error) {
     const feedID = metrics.util.getFeedId(data)
+
+    // Try to transform error message if error is thrown from ether.js
+    if (
+      RPCErrorMap[error?.code as keyof typeof RPCErrorMap] &&
+      error?.message?.includes('version')
+    ) {
+      error.message = RPCErrorMap[error.code as keyof typeof RPCErrorMap]
+    }
+
     return callback(
       error.statusCode || 500,
-      Requester.errored(
-        data.id,
-        error,
-        error.providerResponseStatusCode || error.statusCode,
-        feedID,
-      ),
+      Requester.errored(data.id, error, error.providerStatusCode || error.statusCode, feedID),
     )
   }
 }
