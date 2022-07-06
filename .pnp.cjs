@@ -343,6 +343,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:packages/sources/covid-tracker"
       },
       {
+        "name": "@chainlink/cozyverse-verifier-adapter",
+        "reference": "workspace:packages/sources/cozyverse-verifier"
+      },
+      {
         "name": "@chainlink/cryptex-adapter",
         "reference": "workspace:packages/sources/cryptex"
       },
@@ -784,6 +788,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ["@chainlink/coinranking-adapter", ["workspace:packages/sources/coinranking"]],
       ["@chainlink/conflux-adapter", ["workspace:packages/targets/conflux"]],
       ["@chainlink/covid-tracker-adapter", ["workspace:packages/sources/covid-tracker"]],
+      ["@chainlink/cozyverse-verifier-adapter", ["workspace:packages/sources/cozyverse-verifier"]],
       ["@chainlink/cryptex-adapter", ["workspace:packages/sources/cryptex"]],
       ["@chainlink/crypto-volatility-index-adapter", ["workspace:packages/composites/crypto-volatility-index"]],
       ["@chainlink/cryptoapis-adapter", ["workspace:packages/sources/cryptoapis"]],
@@ -4994,6 +4999,26 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "SOFT",
         }]
       ]],
+      ["@chainlink/cozyverse-verifier-adapter", [
+        ["workspace:packages/sources/cozyverse-verifier", {
+          "packageLocation": "./packages/sources/cozyverse-verifier/",
+          "packageDependencies": [
+            ["@chainlink/cozyverse-verifier-adapter", "workspace:packages/sources/cozyverse-verifier"],
+            ["@chainlink/ea-bootstrap", "workspace:packages/core/bootstrap"],
+            ["@chainlink/ea-test-helpers", "workspace:packages/core/test-helpers"],
+            ["@chainlink/types", "workspace:packages/core/types/@chainlink"],
+            ["@types/jest", "npm:27.0.3"],
+            ["@types/node", "npm:16.11.38"],
+            ["@types/supertest", "npm:2.0.12"],
+            ["ethers", "npm:5.4.6"],
+            ["nock", "npm:13.2.6"],
+            ["supertest", "npm:6.2.3"],
+            ["tslib", "npm:2.3.1"],
+            ["typescript", "patch:typescript@npm%3A4.3.5#~builtin<compat/typescript>::version=4.3.5&hash=493e53"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
       ["@chainlink/cryptex-adapter", [
         ["workspace:packages/sources/cryptex", {
           "packageLocation": "./packages/sources/cryptex/",
@@ -5427,6 +5452,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@chainlink/coinpaprika-adapter", "workspace:packages/sources/coinpaprika"],
             ["@chainlink/coinranking-adapter", "workspace:packages/sources/coinranking"],
             ["@chainlink/covid-tracker-adapter", "workspace:packages/sources/covid-tracker"],
+            ["@chainlink/cozyverse-verifier-adapter", "workspace:packages/sources/cozyverse-verifier"],
             ["@chainlink/cryptex-adapter", "workspace:packages/sources/cryptex"],
             ["@chainlink/cryptoapis-adapter", "workspace:packages/sources/cryptoapis"],
             ["@chainlink/cryptoapis-v2-adapter", "workspace:packages/sources/cryptoapis-v2"],

@@ -21,6 +21,7 @@ import * as blockstream from '@chainlink/blockstream-adapter'
 import * as bravenewcoin from '@chainlink/bravenewcoin-adapter'
 import * as btc_com from '@chainlink/btc.com-adapter'
 import * as cache_gold from '@chainlink/cache.gold-adapter'
+import * as ccip_read from '@chainlink/ccip-read-adapter'
 import * as celsius_address_list from '@chainlink/celsius-address-list-adapter'
 import * as cfbenchmarks from '@chainlink/cfbenchmarks-adapter'
 import * as chain_reserve_wallet from '@chainlink/chain-reserve-wallet-adapter'
@@ -34,6 +35,7 @@ import * as coinmetrics from '@chainlink/coinmetrics-adapter'
 import * as coinpaprika from '@chainlink/coinpaprika-adapter'
 import * as coinranking from '@chainlink/coinranking-adapter'
 import * as covid_tracker from '@chainlink/covid-tracker-adapter'
+import * as cozyverse_verifier from '@chainlink/cozyverse-verifier-adapter'
 import * as cryptex from '@chainlink/cryptex-adapter'
 import * as cryptoapis from '@chainlink/cryptoapis-adapter'
 import * as cryptoapis_v2 from '@chainlink/cryptoapis-v2-adapter'
@@ -44,7 +46,6 @@ import * as currencylayer from '@chainlink/currencylayer-adapter'
 import * as curve from '@chainlink/curve-adapter'
 import * as deribit from '@chainlink/deribit-adapter'
 import * as dns_query from '@chainlink/dns-query-adapter'
-import * as ccip_read from '@chainlink/ccip-read-adapter'
 import * as dwolla from '@chainlink/dwolla-adapter'
 import * as dxfeed from '@chainlink/dxfeed-adapter'
 import * as dxfeed_secondary from '@chainlink/dxfeed-secondary-adapter'
@@ -153,6 +154,7 @@ export default {
   bravenewcoin,
   btc_com,
   cache_gold,
+  ccip_read,
   celsius_address_list,
   cfbenchmarks,
   chain_reserve_wallet,
@@ -166,6 +168,7 @@ export default {
   coinpaprika,
   coinranking,
   covid_tracker,
+  cozyverse_verifier,
   cryptex,
   cryptoapis,
   cryptoapis_v2,
@@ -176,7 +179,6 @@ export default {
   curve,
   deribit,
   dns_query,
-  ccip_read,
   dwolla,
   dxfeed,
   dxfeed_secondary,

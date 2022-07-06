@@ -120,6 +120,9 @@
       "path": "./scripts"
     },
     {
+      "path": "./scripts/src/generate-readme/test/integration/readme-test-adapter"
+    },
+    {
       "path": "./sources/1forge"
     },
     {
@@ -189,6 +192,9 @@
       "path": "./sources/cache.gold"
     },
     {
+      "path": "./sources/ccip-read"
+    },
+    {
       "path": "./sources/celsius-address-list"
     },
     {
@@ -228,6 +234,9 @@
       "path": "./sources/covid-tracker"
     },
     {
+      "path": "./sources/cozyverse-verifier"
+    },
+    {
       "path": "./sources/cryptex"
     },
     {
@@ -256,9 +265,6 @@
     },
     {
       "path": "./sources/dns-query"
-    },
-    {
-      "path": "./sources/ccip-read"
     },
     {
       "path": "./sources/dwolla"

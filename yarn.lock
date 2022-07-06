@@ -2620,6 +2620,24 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@chainlink/cozyverse-verifier-adapter@workspace:*, @chainlink/cozyverse-verifier-adapter@workspace:packages/sources/cozyverse-verifier":
+  version: 0.0.0-use.local
+  resolution: "@chainlink/cozyverse-verifier-adapter@workspace:packages/sources/cozyverse-verifier"
+  dependencies:
+    "@chainlink/ea-bootstrap": "workspace:*"
+    "@chainlink/ea-test-helpers": "workspace:*"
+    "@chainlink/types": "workspace:*"
+    "@types/jest": 27.0.3
+    "@types/node": 16.11.38
+    "@types/supertest": 2.0.12
+    ethers: ^5.4.6
+    nock: 13.2.6
+    supertest: 6.2.3
+    tslib: ^2.3.1
+    typescript: 4.3.5
+  languageName: unknown
+  linkType: soft
+
 "@chainlink/cryptex-adapter@workspace:*, @chainlink/cryptex-adapter@workspace:packages/sources/cryptex":
   version: 0.0.0-use.local
   resolution: "@chainlink/cryptex-adapter@workspace:packages/sources/cryptex"
@@ -3143,6 +3161,7 @@ __metadata:
     "@chainlink/coinpaprika-adapter": "workspace:*"
     "@chainlink/coinranking-adapter": "workspace:*"
     "@chainlink/covid-tracker-adapter": "workspace:*"
+    "@chainlink/cozyverse-verifier-adapter": "workspace:*"
     "@chainlink/cryptex-adapter": "workspace:*"
     "@chainlink/cryptoapis-adapter": "workspace:*"
     "@chainlink/cryptoapis-v2-adapter": "workspace:*"
