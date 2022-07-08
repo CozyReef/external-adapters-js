@@ -1,47 +1,58 @@
 import { Requester, Validator } from '@chainlink/ea-bootstrap'
 import { ExecuteWithConfig, InputParameters } from '@chainlink/types'
 import { Config } from '../config'
-import { utils } from 'ethers'
+import { utils, BigNumber, ethers } from 'ethers'
 
 export const supportedEndpoints = ['sappySeals']
 
 export const inputParameters: InputParameters = {
-  signature: {
-    aliases: ['function'],
+  ownerAddress: {
     required: true,
-    description:
-      'Function signature. Should be formatted as [human readable ABI](https://docs.ethers.io/v5/single-page/#/v5/getting-started/-%23-getting-started--contracts)',
-  },
-  address: {
-    aliases: ['contract'],
-    required: true,
-    description: 'Address of the contract',
+    description: 'Address of the owner',
     type: 'string',
   },
-  inputParams: {
-    required: false,
-    description: 'Array of function parameters in order',
-    type: 'array',
+  tokenId: {
+    required: true,
+    description: 'Token ID of the NFT to find owner of',
+    type: 'string',
   },
 }
 
 export const execute: ExecuteWithConfig<Config> = async (request, _, config) => {
-  console.log('sappySeals')
   const validator = new Validator(request, inputParameters)
-
   const jobRunID = validator.validated.id
-  const address = validator.validated.data.address
-  const fnSignature = validator.validated.data.signature
-  const params = validator.validated.data.inputParams || []
+  const tokenId = BigNumber.from(validator.validated.data.tokenId)
+  const ownerAddress = validator.validated.data.ownerAddress
 
-  const iface = new utils.Interface([fnSignature])
-  const fnName = iface.functions[Object.keys(iface.functions)[0]].name
+  const nftAddress = '0x364c828ee171616a39897688a831c2499ad972ec'
+  const ownerOfSignature = 'function ownerOf(uint256 tokenId) public view returns (address)'
+  const stakingAddress = '0xdf8a88212ff229446e003f8f879e263d3616b57a'
+  const stakingSignature =
+    'function depositsOf(address account) external view returns (uint256[] memory)'
 
-  const encoded = iface.encodeFunctionData(fnName, [...params])
+  const contractStaking = new ethers.Contract(stakingAddress, [stakingSignature], config.provider)
+  const resultStaking = await contractStaking.depositsOf(ownerAddress)
 
-  const result = await config.provider.call({
-    to: address,
-    data: encoded,
+  for (const ownedTokenId of resultStaking) {
+    if (ownedTokenId.toString() === validator.validated.data.tokenId) {
+      const response = {
+        jobRunID,
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        config: {},
+        data: ownerAddress,
+      }
+      return Requester.success(jobRunID, Requester.withResult(response, ownerAddress))
+    }
+  }
+
+  const ifaceNft = new utils.Interface([ownerOfSignature])
+  const encodedNft = ifaceNft.encodeFunctionData('ownerOf', [tokenId])
+
+  const resultNft = await config.provider.call({
+    to: nftAddress,
+    data: encodedNft,
   })
 
   const response = {
@@ -50,8 +61,7 @@ export const execute: ExecuteWithConfig<Config> = async (request, _, config) => 
     statusText: 'OK',
     headers: {},
     config: {},
-    data: result,
+    data: resultNft,
   }
-
-  return Requester.success(jobRunID, Requester.withResult(response, result))
+  return Requester.success(jobRunID, Requester.withResult(response, resultNft))
 }
