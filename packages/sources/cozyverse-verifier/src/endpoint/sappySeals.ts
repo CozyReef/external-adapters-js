@@ -35,15 +35,16 @@ export const execute: ExecuteWithConfig<Config> = async (request, _, config) => 
 
   for (const ownedTokenId of resultStaking) {
     if (ownedTokenId.toString() === validator.validated.data.tokenId) {
+      const result = utils.hexZeroPad(ownerAddress, 32)
       const response = {
         jobRunID,
         status: 200,
         statusText: 'OK',
         headers: {},
         config: {},
-        data: ownerAddress,
+        data: result,
       }
-      return Requester.success(jobRunID, Requester.withResult(response, ownerAddress))
+      return Requester.success(jobRunID, Requester.withResult(response, result))
     }
   }
 
